@@ -1,0 +1,22 @@
+{
+	"folders":
+	[
+		{
+			"folder_exclude_patterns":
+			[
+				".git"
+			],
+			"path": "."
+		}
+	],
+	"settings":
+	{
+		"ensure_newline_at_eof_on_save": true,
+		"pep8_max_line_length": 89,
+		"rulers":
+		[
+			89
+		],
+		"trim_trailing_white_space_on_save": true
+	}
+}
