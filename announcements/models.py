@@ -1,10 +1,10 @@
 
-from datetime import datetime
 from django.db import models
+from django.utils import timezone
 
 class AnnouncementManager(models.Manager):
     def current(self):
-        now = datetime.now()
+        now = timezone.now()
         return self.get_query_set().filter(date_start__lte=now).filter(
             models.Q(date_end__gte=now) | models.Q(date_end__isnull=True)
         )
@@ -35,7 +35,7 @@ class Announcement(models.Model):
     objects = AnnouncementManager()
 
     def is_current(self):
-        now = datetime.now()
+        now = timezone.now()
         if self.date_start < now:
             if self.date_end is None or self.date_end > now:
                 return True
