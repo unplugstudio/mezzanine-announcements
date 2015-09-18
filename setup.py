@@ -6,12 +6,12 @@ version_tuple = __import__('announcements').VERSION
 version = ".".join([str(v) for v in version_tuple])
 
 setup(
-    name = 'django-simple-announcements',
-    description = '''Basic site-wide announcements for your Django project.''',
+    name = 'mezzanine-announcements',
+    description = '''Basic site-wide announcements for your Mezzanine project.''',
     version = version,
-    author = 'Craig de Stigter',
-    author_email = 'craig.ds@gmail.com',
-    url = 'http://github.com/craigds/django-simple-announcements/',
+    author = 'Eduardo Vela',
+    author_email = 'eduardo3vela@gmail.com',
+    url = 'git@gitlab.com:tigris-webdev/mezzanine-announcements.git',
     packages=['announcements', 'announcements.templatetags'],
     package_data={'announcements': ['templates/announcements/*']},
     classifiers = ['Development Status :: 4 - Beta',
