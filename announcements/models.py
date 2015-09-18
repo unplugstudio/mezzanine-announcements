@@ -34,6 +34,8 @@ class Announcement(models.Model):
     date_created = models.DateTimeField(db_index=True, auto_now_add=True)
     date_start = models.DateTimeField(db_index=True)
     date_end = models.DateTimeField(db_index=True, null=True, blank=True)
+    can_dismiss = models.BooleanField(
+        "Can be dismissed", default=True, help_text="Announcement can be dismissed")
 
     objects = AnnouncementManager()
 
@@ -46,10 +48,6 @@ class Announcement(models.Model):
 
     # for great justice. (and admin prettiness)
     is_current.boolean = True
-
-    def can_dismiss(self):
-        from announcements import defaults
-        return defaults.ANNOUNCEMENTS_DISMISSABLE
 
     def __unicode__(self):
         return unicode(self.message)
@@ -68,6 +66,6 @@ class Announcement(models.Model):
             'id': self.pk,
             'message': self.message,
             'url': self.url,
-            'can_dismiss': self.can_dismiss(),
+            'can_dismiss': self.can_dismiss,
             'html': self.to_html(),
         }
