@@ -2,6 +2,8 @@
 from django.db import models
 from django.utils import timezone
 
+from mezzanine.core.fields import RichTextField
+
 class AnnouncementManager(models.Manager):
     def current(self):
         now = timezone.now()
@@ -27,6 +29,7 @@ class AnnouncementManager(models.Manager):
 
 class Announcement(models.Model):
     message = models.CharField(max_length=255)
+    content = RichTextField(default="")
     url = models.URLField(null=False, blank=True, help_text="(Optional) - Link to a blog post with more information")
     date_created = models.DateTimeField(db_index=True, auto_now_add=True)
     date_start = models.DateTimeField(db_index=True)
