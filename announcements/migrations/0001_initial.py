@@ -11,11 +11,13 @@ class Migration(SchemaMigration):
         # Adding model 'Announcement'
         db.create_table(u'announcements_announcement', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('message', self.gf('django.db.models.fields.CharField')(max_length=255)),
-            ('url', self.gf('django.db.models.fields.URLField')(max_length=200, blank=True)),
+            ('title', self.gf('django.db.models.fields.CharField')(max_length=255)),
+            ('content', self.gf('mezzanine.core.fields.RichTextField')(default='')),
             ('date_created', self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, db_index=True, blank=True)),
             ('date_start', self.gf('django.db.models.fields.DateTimeField')(db_index=True)),
             ('date_end', self.gf('django.db.models.fields.DateTimeField')(db_index=True, null=True, blank=True)),
+            ('can_dismiss', self.gf('django.db.models.fields.BooleanField')(default=True)),
+            ('announcement_type', self.gf('django.db.models.fields.IntegerField')(default=1)),
         ))
         db.send_create_signal(u'announcements', ['Announcement'])
 
@@ -28,12 +30,14 @@ class Migration(SchemaMigration):
     models = {
         u'announcements.announcement': {
             'Meta': {'object_name': 'Announcement'},
+            'announcement_type': ('django.db.models.fields.IntegerField', [], {'default': '1'}),
+            'can_dismiss': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
+            'content': ('mezzanine.core.fields.RichTextField', [], {'default': "''"}),
             'date_created': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'db_index': 'True', 'blank': 'True'}),
             'date_end': ('django.db.models.fields.DateTimeField', [], {'db_index': 'True', 'null': 'True', 'blank': 'True'}),
             'date_start': ('django.db.models.fields.DateTimeField', [], {'db_index': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'message': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
-            'url': ('django.db.models.fields.URLField', [], {'max_length': '200', 'blank': 'True'})
+            'title': ('django.db.models.fields.CharField', [], {'max_length': '255'})
         }
     }
 
