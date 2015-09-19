@@ -2,6 +2,7 @@
 from django.db import models
 from django.utils import timezone
 
+from mezzanine.conf import settings
 from mezzanine.core.fields import RichTextField
 
 class AnnouncementManager(models.Manager):
@@ -36,6 +37,9 @@ class Announcement(models.Model):
     can_dismiss = models.BooleanField(
         "Can be dismissed", default=True,
         help_text="The user can dismiss this announcement")
+    announcement_type = models.IntegerField(
+        "Announcement type", default=1, choices=settings.ANNOUNCEMENTS_TYPES,
+        help_text="This controls how the announcement will be displayed")
 
     objects = AnnouncementManager()
 
