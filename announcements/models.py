@@ -28,7 +28,7 @@ class AnnouncementManager(models.Manager):
         return qs
 
 class Announcement(models.Model):
-    message = models.CharField(max_length=255)
+    title = models.CharField(max_length=255)
     content = RichTextField(default="")
     url = models.URLField(null=False, blank=True, help_text="(Optional) - Link to a blog post with more information")
     date_created = models.DateTimeField(db_index=True, auto_now_add=True)
@@ -50,7 +50,7 @@ class Announcement(models.Model):
     is_current.boolean = True
 
     def __unicode__(self):
-        return unicode(self.message)
+        return unicode(self.title)
 
     def to_html(self):
         from django.template import loader, Context
@@ -64,7 +64,7 @@ class Announcement(models.Model):
 
         return {
             'id': self.pk,
-            'message': self.message,
+            'title': self.title,
             'url': self.url,
             'can_dismiss': self.can_dismiss,
             'html': self.to_html(),
