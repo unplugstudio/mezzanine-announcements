@@ -6,7 +6,14 @@ ANNOUNCEMENTS_JS_NAMESPACE = getattr(settings, 'ANNOUNCEMENTS_JS_NAMESPACE', 'An
 
 ANNOUNCEMENTS_COOKIE_NAME = getattr(settings, 'ANNOUNCEMENTS_COOKIE_NAME', 'announcements_dismiss')
 
-ANNOUNCEMENTS_MAX = getattr(settings, "ANNOUNCEMENTS_MAX", 1)
+register_setting(
+    name="ANNOUNCEMENTS_MAX_NUMBER",
+    description="The total number of announcements to be displayed at the same time, "
+                "according to the date and time that the announcements "
+                "will be published.",
+    editable=True,
+    default=1
+)
 
 register_setting(
     name="ANNOUNCEMENTS_TYPES",

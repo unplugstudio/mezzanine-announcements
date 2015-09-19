@@ -25,7 +25,7 @@ class AnnouncementManager(models.Manager):
                 pass
 
         qs = self.current().filter(pk__gt=dismissed_pk)
-        qs = qs.order_by('-date_start')[:defaults.ANNOUNCEMENTS_MAX]
+        qs = qs.order_by('-date_start')[:settings.ANNOUNCEMENTS_MAX_NUMBER]
         return qs
 
 class Announcement(models.Model):
