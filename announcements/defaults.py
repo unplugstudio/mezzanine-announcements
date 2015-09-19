@@ -15,3 +15,11 @@ register_setting(
     editable=False,
     default=[(1, "Top bar"), (2, "Roadblock (splash screen)"),],
 )
+
+register_setting(
+    name="TEMPLATE_ACCESSIBLE_SETTINGS",
+    description="Make ANNOUNCEMENTS_TYPES to be accesible in template.",
+    editable=False,
+    default=("ANNOUNCEMENTS_TYPES",),
+    append=True,
+)
