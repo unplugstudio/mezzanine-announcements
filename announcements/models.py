@@ -29,29 +29,30 @@ class AnnouncementManager(models.Manager):
         return qs
 
 class Announcement(models.Model):
-    title = models.CharField(max_length=255)
-    content = RichTextField(default="")
-    date_created = models.DateTimeField(db_index=True, auto_now_add=True)
-    date_start = models.DateTimeField(db_index=True)
-    date_end = models.DateTimeField(db_index=True, null=True, blank=True)
+    title = models.CharField("Title", max_length=255)
+    content = RichTextField("Content")
+    date_created = models.DateTimeField(
+        "Date created", db_index=True, auto_now_add=True)
+    date_start = models.DateTimeField(
+        "Start date", db_index=True)
+    date_end = models.DateTimeField(
+        "End date", db_index=True, null=True, blank=True)
     can_dismiss = models.BooleanField(
-        "Can be dismissed", default=True,
-        help_text="The user can dismiss this announcement")
+        "Dismissable", default=True,
+        help_text="The user can dismiss (close) this announcement")
     announcement_type = models.IntegerField(
         "Announcement type", default=1, choices=settings.ANNOUNCEMENTS_TYPES,
         help_text="This controls how the announcement will be displayed")
 
     objects = AnnouncementManager()
 
-    def is_current(self):
+    def is_active(self):
         now = timezone.now()
         if self.date_start < now:
             if self.date_end is None or self.date_end > now:
                 return True
         return False
-
-    # for great justice. (and admin prettiness)
-    is_current.boolean = True
+    is_active.boolean = True
 
     def __unicode__(self):
         return unicode(self.title)
