@@ -7,14 +7,25 @@ from django.utils.encoding import python_2_unicode_compatible
 from mezzanine.conf import settings
 from mezzanine.core.fields import RichTextField
 
+
 class AnnouncementManager(models.Manager):
+    """
+    Custom manager for the Announcement model.
+    """
+
     def current(self):
+        """
+        Return the currently active announcements.
+        """
         now = timezone.now()
         return self.get_query_set().filter(date_start__lte=now).filter(
             models.Q(date_end__gte=now) | models.Q(date_end__isnull=True)
         )
 
     def for_request(self, request):
+        """
+        Return the announcements for the current request/session.
+        """
         from announcements import defaults
         cookie_name = defaults.ANNOUNCEMENTS_COOKIE_NAME
         cookie = request.COOKIES.get(cookie_name, None)
@@ -33,6 +44,10 @@ class AnnouncementManager(models.Manager):
 
 @python_2_unicode_compatible
 class Announcement(models.Model):
+    """
+    An announcement to all site visitors.
+    Announcements can be scheduled and/or dismissed by each user when seen.
+    """
     title = models.CharField("Title", max_length=255)
     content = RichTextField("Content")
     date_created = models.DateTimeField(
@@ -50,7 +65,17 @@ class Announcement(models.Model):
 
     objects = AnnouncementManager()
 
+    class Meta:
+        verbose_name = "Announcement"
+        verbose_name_plural = "Announcements"
+
+    def __str__(self):
+        return self.title
+
     def is_active(self):
+        """
+        Helper method to determine if the announcement is currently active.
+        """
         now = timezone.now()
         if self.date_start < now:
             if self.date_end is None or self.date_end > now:
@@ -58,10 +83,10 @@ class Announcement(models.Model):
         return False
     is_active.boolean = True
 
-    def __str__(self):
-        return self.title
-
     def to_html(self):
+        """
+        HTML representation of this announcement.
+        """
         from django.template import loader, Context
         t = loader.get_template("announcements/announcement.html")
         c = Context({
@@ -70,7 +95,9 @@ class Announcement(models.Model):
         return t.render(c)
 
     def to_json(self):
-
+        """
+        JSON representation of this announcement.
+        """
         return {
             'id': self.pk,
             'title': self.title,
