@@ -34,7 +34,8 @@ class Announcement(models.Model):
     date_start = models.DateTimeField(db_index=True)
     date_end = models.DateTimeField(db_index=True, null=True, blank=True)
     can_dismiss = models.BooleanField(
-        "Can be dismissed", default=True, help_text="Announcement can be dismissed")
+        "Can be dismissed", default=True,
+        help_text="The user can dismiss this announcement")
 
     objects = AnnouncementManager()
 
