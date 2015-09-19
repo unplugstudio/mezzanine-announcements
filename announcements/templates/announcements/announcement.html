@@ -3,9 +3,5 @@
     {% if announcement.can_dismiss %}
         <a class="dismissLink" onclick="{% dismiss_js_link announcement %}">Dismiss</a>
     {% endif %}
-    {% if announcement.url %}
-        <a class="moreLink" href="{{ announcement.url }}">{{ announcement.title }}</a>
-    {% else %}
-        {{ announcement.title }}
-    {% endif %}
+    {{ announcement.title }}
 </div>
