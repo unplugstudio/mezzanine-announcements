@@ -1,6 +1,8 @@
+from __future__ import unicode_literals
 
 from django.db import models
 from django.utils import timezone
+from django.utils.encoding import python_2_unicode_compatible
 
 from mezzanine.conf import settings
 from mezzanine.core.fields import RichTextField
@@ -28,6 +30,8 @@ class AnnouncementManager(models.Manager):
         qs = qs.order_by('-date_start')[:settings.ANNOUNCEMENTS_MAX_NUMBER]
         return qs
 
+
+@python_2_unicode_compatible
 class Announcement(models.Model):
     title = models.CharField("Title", max_length=255)
     content = RichTextField("Content")
@@ -54,8 +58,8 @@ class Announcement(models.Model):
         return False
     is_active.boolean = True
 
-    def __unicode__(self):
-        return unicode(self.title)
+    def __str__(self):
+        return self.title
 
     def to_html(self):
         from django.template import loader, Context
