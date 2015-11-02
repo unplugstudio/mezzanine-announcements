@@ -32,8 +32,7 @@ class AnnouncementManager(models.Manager):
         """
         Return the announcements for the current request/session.
         """
-        from announcements import defaults
-        cookie_name = defaults.ANNOUNCEMENTS_COOKIE_NAME
+        cookie_name = "announcements_dismiss"
         cookie = request.COOKIES.get(cookie_name, None)
 
         dismissed_pk = 0
