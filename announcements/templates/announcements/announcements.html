@@ -1,7 +1,5 @@
-{% if announcements %}
-<div id="announcements">
+{% load mezzanine_tags %}
+
 {% for announcement in announcements %}
-    {% include "announcements/announcement.html" %}
+	{% include announcement.template %}
 {% endfor %}
-</div>
-{% endif %}

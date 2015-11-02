@@ -4,6 +4,7 @@ from .models import Announcement
 
 
 class AnnouncementOptions(admin.ModelAdmin):
+    exclude = ['template']
     list_display = ['title', 'announcement_type', 'date_start', 'date_end', 'is_active',
                     'can_dismiss']
     list_filter = ['announcement_type', 'can_dismiss']

@@ -8,6 +8,12 @@ from mezzanine.conf import settings
 from mezzanine.core.fields import RichTextField
 
 
+# Announcements types tuple
+ANNOUNCEMENTS_TYPES = []
+for index, value in enumerate(settings.ANNOUNCEMENT_TEMPLATES):
+    ANNOUNCEMENTS_TYPES.append((index, value[1]))
+
+
 class AnnouncementManager(models.Manager):
     """
     Custom manager for the Announcement model.
@@ -60,8 +66,9 @@ class Announcement(models.Model):
         "Dismissable", default=True,
         help_text="The user can dismiss (close) this announcement")
     announcement_type = models.IntegerField(
-        "Announcement type", default=1, choices=settings.ANNOUNCEMENTS_TYPES,
+        "Announcement type", default=0, choices=ANNOUNCEMENTS_TYPES,
         help_text="This controls how the announcement will be displayed")
+    template = models.CharField(max_length=200, default="")
 
     objects = AnnouncementManager()
 
@@ -71,6 +78,10 @@ class Announcement(models.Model):
 
     def __str__(self):
         return self.title
+
+    def save(self, *args, **kwargs):
+        self.template = settings.ANNOUNCEMENT_TEMPLATES[self.announcement_type][0]
+        super(Announcement, self).save(*args, **kwargs)
 
     def is_active(self):
         """

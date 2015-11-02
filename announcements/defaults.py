@@ -14,19 +14,3 @@ register_setting(
     editable=True,
     default=1
 )
-
-register_setting(
-    name="ANNOUNCEMENTS_TYPES",
-    description="The types of announcements that the user can choose."
-                "Depends to the developer how to display the announcement.",
-    editable=False,
-    default=[(1, "Top bar"), (2, "Roadblock (splash screen)"),],
-)
-
-register_setting(
-    name="TEMPLATE_ACCESSIBLE_SETTINGS",
-    description="Make ANNOUNCEMENTS_TYPES to be accesible in template.",
-    editable=False,
-    default=("ANNOUNCEMENTS_TYPES",),
-    append=True,
-)
