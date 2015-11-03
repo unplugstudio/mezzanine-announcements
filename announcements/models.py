@@ -68,6 +68,9 @@ class Announcement(models.Model):
         "Announcement type", default=0, choices=ANNOUNCEMENTS_TYPES,
         help_text="This controls how the announcement will be displayed")
     template = models.CharField(max_length=200, default="")
+    expire_days = models.PositiveSmallIntegerField(
+        help_text='Number of days the announcement should appear again when user '
+        'has dismissed the announcement.', null=True, blank=True)
 
     objects = AnnouncementManager()
 

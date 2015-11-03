@@ -8,7 +8,12 @@ $(document).ready(function() {
     }
 
     $(".close-announcement").on("click", function() {
-        var announcementId = $(this).data("announcementId");
-        setCookie("announcements_dismiss", announcementId, 365);
+        $this = $(this);
+        var announcementId = $this.data("announcementId");
+        var expiredays = 365
+        if ($this.attr("data-expire-days")) {
+            expiredays = $this.data("expireDays");
+        }
+        setCookie("announcements_dismiss", announcementId, expiredays);
     });
 });
