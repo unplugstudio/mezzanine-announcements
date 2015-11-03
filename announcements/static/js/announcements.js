@@ -19,5 +19,8 @@ $(document).ready(function() {
             expiredays = $this.data("expireDays");
         }
         Cookies.set(cname, cvalue, {expires: expiredays});
+
+        // Add fadeout transition to dismissable announcements
+        $this.closest(".announcement").fadeOut();
     });
 });
