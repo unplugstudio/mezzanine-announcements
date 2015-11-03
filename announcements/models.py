@@ -34,15 +34,19 @@ class AnnouncementManager(models.Manager):
         """
         cookie_name = "announcements_dismiss"
         cookie = request.COOKIES.get(cookie_name, None)
-
-        dismissed_pk = 0
+        try:
+            cookie = cookie.split("_")
+            cookie = [int(x) for x in cookie]
+        except AttributeError:
+            pass
+        dismissed_pk = [0]
         if cookie:
             try:
-                dismissed_pk = int(cookie)
+                dismissed_pk = cookie
             except ValueError:
                 pass
 
-        qs = self.current().filter(pk__gt=dismissed_pk)
+        qs = self.current().exclude(pk__in=dismissed_pk)
         qs = qs.order_by('-date_start')[:settings.ANNOUNCEMENTS_MAX_NUMBER]
         return qs
 
