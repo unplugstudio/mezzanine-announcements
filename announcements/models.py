@@ -71,15 +71,15 @@ class Announcement(models.Model):
         "Dismissable", default=True,
         help_text="The user can dismiss (close) this announcement")
     button_dismiss_text = models.CharField(
-       "Button dismiss text", max_length=100, blank=True,
+       "Dismiss text", max_length=100, blank=True,
        help_text="Text displayed with the dismiss button")
     announcement_type = models.IntegerField(
-        "Announcement type", default=0, choices=ANNOUNCEMENTS_TYPES,
-        help_text="This controls how the announcement will be displayed")
+        "Announcement type", default=0, choices=ANNOUNCEMENTS_TYPES)
     template = models.CharField(max_length=200, default="")
     expire_days = models.PositiveSmallIntegerField(
-        help_text='Number of days the announcement should appear again when user '
-        'has dismissed the announcement.', null=True, blank=True)
+        "Announcement frequency", null=True, blank=True,
+        help_text="Show the announcement again after being dismissed after "
+        "this amount of days")
 
     objects = AnnouncementManager()
 
