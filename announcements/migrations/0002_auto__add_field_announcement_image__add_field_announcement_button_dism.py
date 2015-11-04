@@ -29,6 +29,9 @@ class Migration(SchemaMigration):
                       keep_default=False)
 
 
+        # Changing field 'Announcement.content'
+        db.alter_column(u'announcements_announcement', 'content', self.gf('django.db.models.fields.TextField')())
+
     def backwards(self, orm):
         # Deleting field 'Announcement.image'
         db.delete_column(u'announcements_announcement', 'image')
@@ -43,13 +46,16 @@ class Migration(SchemaMigration):
         db.delete_column(u'announcements_announcement', 'expire_days')
 
 
+        # Changing field 'Announcement.content'
+        db.alter_column(u'announcements_announcement', 'content', self.gf('mezzanine.core.fields.RichTextField')())
+
     models = {
         u'announcements.announcement': {
             'Meta': {'object_name': 'Announcement'},
             'announcement_type': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
             'button_dismiss_text': ('django.db.models.fields.CharField', [], {'max_length': '100', 'blank': 'True'}),
             'can_dismiss': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
-            'content': ('mezzanine.core.fields.RichTextField', [], {}),
+            'content': ('django.db.models.fields.TextField', [], {}),
             'date_created': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'db_index': 'True', 'blank': 'True'}),
             'date_end': ('django.db.models.fields.DateTimeField', [], {'db_index': 'True', 'null': 'True', 'blank': 'True'}),
             'date_start': ('django.db.models.fields.DateTimeField', [], {'db_index': 'True'}),

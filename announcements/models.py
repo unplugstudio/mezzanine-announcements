@@ -58,7 +58,7 @@ class Announcement(models.Model):
     Announcements can be scheduled and/or dismissed by each user when seen.
     """
     title = models.CharField("Title", max_length=255)
-    content = RichTextField("Content")
+    content = models.TextField("Content")
     date_created = models.DateTimeField(
         "Date created", db_index=True, auto_now_add=True)
     date_start = models.DateTimeField(
