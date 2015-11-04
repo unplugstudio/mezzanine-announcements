@@ -5,7 +5,7 @@ from django.utils import timezone
 from django.utils.encoding import python_2_unicode_compatible
 
 from mezzanine.conf import settings
-from mezzanine.core.fields import RichTextField
+from mezzanine.core.fields import FileField, RichTextField
 
 
 # Announcements types tuple
@@ -65,9 +65,14 @@ class Announcement(models.Model):
         "Start date", db_index=True)
     date_end = models.DateTimeField(
         "End date", db_index=True, null=True, blank=True)
+    image = FileField(
+        "Image", upload_to="announcements/images", format="Image", blank=True)
     can_dismiss = models.BooleanField(
         "Dismissable", default=True,
         help_text="The user can dismiss (close) this announcement")
+    button_dismiss_text = models.CharField(
+       "Button dismiss text", max_length=100, blank=True,
+       help_text="Text displayed with the dismiss button")
     announcement_type = models.IntegerField(
         "Announcement type", default=0, choices=ANNOUNCEMENTS_TYPES,
         help_text="This controls how the announcement will be displayed")
