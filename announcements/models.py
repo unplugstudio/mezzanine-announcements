@@ -80,6 +80,9 @@ class Announcement(models.Model):
         "Announcement frequency", null=True, blank=True,
         help_text="Show the announcement again after being dismissed after "
         "this amount of days")
+    appearance_delay = models.IntegerField(
+        "Appearance delay", default=0,
+        help_text="Delay time for the announcement to appear (miliseconds)")
 
     objects = AnnouncementManager()
 

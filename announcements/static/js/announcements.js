@@ -24,5 +24,15 @@ function closeAnnouncement(element) {
 }
 
 $(document).ready(function() {
+    $(".announcement").each(function() {
+        $this = $(this);
+        var delay_time = $this.data("appearanceDelay");
+        var announcement_id = $this.data("announcementId");
+        setTimeout(function(){
+            $(".announcement[data-announcement-id="
+                + announcement_id + "]").fadeIn("slow");
+        }, delay_time);
+    });
+
     $(".close-announcement").on("click", function() {closeAnnouncement(this);});
 });
