@@ -3,9 +3,12 @@ from __future__ import unicode_literals
 from django.db import models
 from django.utils import timezone
 from django.utils.encoding import python_2_unicode_compatible
+from django.template import RequestContext
 
 from mezzanine.conf import settings
 from mezzanine.core.fields import FileField, RichTextField
+from mezzanine.core.request import current_request
+from mezzanine.forms.forms import FormForForm
 
 
 # Announcements types tuple
@@ -76,6 +79,7 @@ class Announcement(models.Model):
     announcement_type = models.IntegerField(
         "Announcement type", default=0, choices=ANNOUNCEMENTS_TYPES)
     template = models.CharField(max_length=200, default="")
+    form = models.ForeignKey("forms.Form", blank=True, null=True)
     expire_days = models.PositiveSmallIntegerField(
         "Announcement frequency", null=True, blank=True,
         help_text="Show the announcement again after being dismissed after "
@@ -96,6 +100,11 @@ class Announcement(models.Model):
     def save(self, *args, **kwargs):
         self.template = settings.ANNOUNCEMENT_TEMPLATES[self.announcement_type][0]
         super(Announcement, self).save(*args, **kwargs)
+
+    def get_email_form(self):
+        if self.form:
+            return FormForForm(self.form, RequestContext(current_request()), None, None)
+        return None
 
     def is_active(self):
         """
