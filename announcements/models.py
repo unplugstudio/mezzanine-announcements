@@ -27,7 +27,7 @@ class AnnouncementManager(models.Manager):
         Return the currently active announcements.
         """
         now = timezone.now()
-        return self.get_query_set().filter(date_start__lte=now).filter(
+        return self.get_queryset().filter(date_start__lte=now).filter(
             models.Q(date_end__gte=now) | models.Q(date_end__isnull=True)
         )
 
