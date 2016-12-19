@@ -80,6 +80,7 @@ class Announcement(models.Model):
         "Announcement type", default=0, choices=ANNOUNCEMENTS_TYPES)
     template = models.CharField(max_length=200, default="")
     form = models.ForeignKey("forms.Form", blank=True, null=True)
+    video_link = models.URLField("Video URL", blank=True)
     expire_days = models.PositiveSmallIntegerField(
         "Announcement frequency", null=True, blank=True,
         help_text="Show the announcement again after being dismissed after "
