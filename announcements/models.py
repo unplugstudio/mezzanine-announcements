@@ -6,7 +6,7 @@ from django.utils.encoding import python_2_unicode_compatible
 from django.template import RequestContext
 
 from mezzanine.conf import settings
-from mezzanine.core.fields import FileField, RichTextField
+from mezzanine.core.fields import FileField
 from mezzanine.core.request import current_request
 from mezzanine.forms.forms import FormForForm
 
@@ -74,8 +74,8 @@ class Announcement(models.Model):
         "Dismissable", default=True,
         help_text="The user can dismiss (close) this announcement")
     button_dismiss_text = models.CharField(
-       "Dismiss text", max_length=100, blank=True,
-       help_text="Text displayed with the dismiss button")
+        "Dismiss text", max_length=100, blank=True,
+        help_text="Text displayed with the dismiss button")
     announcement_type = models.IntegerField(
         "Announcement type", default=0, choices=ANNOUNCEMENTS_TYPES)
     template = models.CharField(max_length=200, default="")

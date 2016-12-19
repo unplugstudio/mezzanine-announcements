@@ -6,6 +6,7 @@ from django.utils.safestring import mark_safe
 
 register = Library()
 
+
 @register.simple_tag
 def dismiss_js_link(a):
     return mark_safe(u"%s.dismiss('%s', '%s')" % (
@@ -13,4 +14,3 @@ def dismiss_js_link(a):
         defaults.ANNOUNCEMENTS_COOKIE_NAME,
         a.pk
     ))
-

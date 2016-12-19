@@ -10,4 +10,5 @@ class AnnouncementOptions(admin.ModelAdmin):
     list_filter = ['announcement_type', 'can_dismiss']
     date_hierarchy = 'date_start'
 
+
 admin.site.register(Announcement, AnnouncementOptions)

@@ -1,4 +1,3 @@
-from django.conf import settings
 
 from mezzanine.conf import register_setting
 
