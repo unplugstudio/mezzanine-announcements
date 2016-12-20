@@ -7,6 +7,21 @@ function close(event) {
     var expiredays = $announcement.data("expireDays") || 365;
     var cookieName = "announcements_dismiss";
     var cookieValue = Cookies.get(cookieName);
+    var $iframes = $(".announcement iframe");
+
+    // If there are iframe videos in the announcements, then pause them all
+    $iframes.each(function(i, iframe) {
+        var isVimeo = iframe.src.search("vimeo") > -1;
+        var msg;
+            if (isVimeo) {
+                msg = {method: "pause"};
+        } else {
+            msg = {event: "command", func: "pauseVideo"};
+        }
+        iframe.contentWindow.postMessage(
+            JSON.stringify(msg), "*"
+        )
+    });
 
     // If the announcement cookie is present, parse it as an array
     if (cookieValue) {

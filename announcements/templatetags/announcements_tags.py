@@ -25,6 +25,9 @@ def generate_video_iframe(url):
     hostname = ""
     video_type = ""
     video_id = None
+    # This setting is to make possible to speak with the API of YouTube videos
+    # using JavaScript.
+    enable_js_api = ""
 
     url_data = urlparse.urlparse(url)
 
@@ -36,12 +39,14 @@ def generate_video_iframe(url):
     if url_data.hostname in ("www.youtube.com", "youtube.com", "youtu.be"):
         hostname = "www.youtube.com"
         video_type = "embed"
+        enable_js_api = "enablejsapi=1"  # Enable this only for YouTube videos.
         if url_data.hostname == "youtu.be":
             video_id = url_data.path[1:]
         if video_id is None:
             query = urlparse.parse_qs(url_data.query)
             video_id = query["v"][0]
 
-    return ("<iframe src='https://{hostname}/{type}/{id}?autoplay=1' frameborder='0'"
-            "allowfullscreen></iframe>"
-            .format(hostname=hostname, type=video_type, id=video_id))
+    return ("<iframe src='https://{hostname}/{type}/{id}?autoplay=1&{enable_js_api}' "
+            "frameborder='0' allowfullscreen></iframe>"
+            .format(hostname=hostname, type=video_type, id=video_id,
+                    enable_js_api=enable_js_api))
