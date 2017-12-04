@@ -3,5 +3,5 @@ dist
 *.pyc
 *.pyo
 *egg-info
-*.sublime-workspace
-.*
+*.sublime-*
+.vscode
