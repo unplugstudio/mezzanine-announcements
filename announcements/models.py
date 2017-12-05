@@ -62,14 +62,13 @@ class Announcement(models.Model):
     """
     title = models.CharField("Title", max_length=255)
     content = models.TextField("Content")
-    date_created = models.DateTimeField(
-        "Date created", db_index=True, auto_now_add=True)
-    date_start = models.DateTimeField(
-        "Start date", db_index=True)
-    date_end = models.DateTimeField(
-        "End date", db_index=True, null=True, blank=True)
-    image = FileField(
-        "Image", upload_to="announcements/images", format="Image", blank=True)
+    extra_content = models.TextField("Extra Content (optional)", blank=True)
+    image = FileField("Image", upload_to="announcements/images", format="Image", blank=True)
+
+    date_created = models.DateTimeField("Date created", db_index=True, auto_now_add=True)
+    date_start = models.DateTimeField("Start date", db_index=True)
+    date_end = models.DateTimeField("End date", db_index=True, null=True, blank=True)
+
     can_dismiss = models.BooleanField(
         "Dismissable", default=True,
         help_text="The user can dismiss (close) this announcement")
