@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-from distutils.core import setup
+from setuptools import setup, find_packages
 
 # Dynamically calculate the version based on VERSION
 version_tuple = __import__("announcements").VERSION
@@ -12,8 +12,8 @@ setup(
     author="Eduardo Vela",
     author_email="eduardo3vela@gmail.com",
     url="git@gitlab.com:tigris-webdev/mezzanine-announcements.git",
-    packages=["announcements", "announcements.templatetags"],
-    package_data={"announcements": ["templates/announcements/*"]},
+    packages=find_packages(),
+    include_package_data=True,
     classifiers=[
         "Development Status :: 4 - Beta",
         "Environment :: Web Environment",

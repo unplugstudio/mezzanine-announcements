@@ -1,0 +1,2 @@
+recursive-include announcements/templates *
+recursive-include announcements/static *
