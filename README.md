@@ -13,11 +13,10 @@ A Mezzanine app to create and display site-wide announcements.
 
 ## Installation
 
-1. Install via pip: `pip install git+https://gitlab.com/tigris-webdev/mezzanine-announcements.git`
+1. Install via pip: `pip install -e git+https://gitlab.com/unplugstudio/mezzanine-announcements.git`
 1. Add to `"announcements"` to `INSTALLED_APPS`.
 1. Run migrations.
-1. Add `"announcements.context_processors.announcements"` to your context
-   processors.
+1. Add `"announcements.context_processors.announcements"` to your context processors.
 1. Define the list of announcement templates that will be available for your
    admin users. This is a tuple of two-value tuples defined in
    `settings.ANNOUNCEMENT_TEMPLATES` where the first element is the path to the
@@ -34,8 +33,11 @@ A Mezzanine app to create and display site-wide announcements.
 
 Then to display the announcements in your templates:
 
-1. Add `<script src="{% static 'js/announcements.js' %}"></script>` to the
-   templates where you want to use the announcements.
+1. Add the cookies and announcement scripts to the templates where you want to use the announcements
+    ```django
+    <script src="{% static 'js/js.cookie.js' %}"></script>
+    <script src="{% static 'js/announcements.js' %}"></script>
+    ```
 1. Include the template with all announcements in a `{% nevercache %}` block:
 
    ```django
