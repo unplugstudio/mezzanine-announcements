@@ -13,7 +13,7 @@ A Mezzanine app to create and display site-wide announcements.
 
 ## Installation
 
-1. Install via pip: `pip install -e git+https://gitlab.com/unplugstudio/mezzanine-announcements.git`
+1. Install via pip: `pip install -e git+https://gitlab.com/unplugstudio/mezzanine-announcements.git#egg=mezzanine-announcements`
 1. Add to `"announcements"` to `INSTALLED_APPS`.
 1. Run migrations.
 1. Add `"announcements.context_processors.announcements"` to your context processors.
