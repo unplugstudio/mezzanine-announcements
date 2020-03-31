@@ -11,14 +11,7 @@ register_setting(
 )
 
 register_setting(
-    name="ANNOUNCEMENTS_VIDEO_ENABLED",
-    description="If `True` it will be possible to embed a video in the announcement.",
+    name="ANNOUNCEMENTS_EXTRA_FIELDS",
     editable=False,
-    default=False
-)
-
-register_setting(
-    name="TEMPLATE_ACCESSIBLE_SETTINGS",
-    append=True,
-    default=("ANNOUNCEMENTS_VIDEO_ENABLED",),
+    default=None
 )
