@@ -36,20 +36,18 @@ class AnnouncementAdmin(admin.ModelAdmin):
     ]
 
     def __init__(self, model, admin_site):
+        """
+        Apply customizations from settings
+        """
         super(AnnouncementAdmin, self).__init__(model, admin_site)
 
         if settings.ANNOUNCEMENTS_RICHTEXT_CONTENT:
             self.formfield_overrides[models.TextField] = {'widget': TinyMceWidget}
 
-    def get_fieldsets(self, request, obj=None):
-        """
-        Inject customizable fields from settings
-        """
-        fieldsets = deepcopy(base_fieldsets)
+        self.fieldsets = deepcopy(base_fieldsets)
         extras = settings.ANNOUNCEMENTS_EXTRA_FIELDS
         if extras is not None:
-            fieldsets[0][1]["fields"] += extras
-        return fieldsets
+            self.fieldsets[0][1]["fields"] += extras
 
 
 admin.site.register(Announcement, AnnouncementAdmin)
