@@ -3,13 +3,15 @@ from __future__ import unicode_literals, absolute_import
 from copy import deepcopy
 
 from django.contrib import admin
+from django.db import models
 
 from mezzanine.conf import settings
+from mezzanine.core.forms import TinyMceWidget
 
 from .models import Announcement
 
 base_fieldsets = [
-    ("Content", {"fields": ["image", "title", "content", "announcement_type"]}),
+    ("Content", {"fields": ["image", "title", "announcement_type", "content"]}),
     ("Schedule", {"fields": [("date_start", "date_end")]}),
     (
         "Settings",
@@ -32,6 +34,12 @@ class AnnouncementAdmin(admin.ModelAdmin):
         "is_active",
         "can_dismiss",
     ]
+
+    def __init__(self, model, admin_site):
+        super(AnnouncementAdmin, self).__init__(model, admin_site)
+
+        if settings.ANNOUNCEMENTS_RICHTEXT_CONTENT:
+            self.formfield_overrides[models.TextField] = {'widget': TinyMceWidget}
 
     def get_fieldsets(self, request, obj=None):
         """

@@ -15,3 +15,9 @@ register_setting(
     editable=False,
     default=None
 )
+
+register_setting(
+    name="ANNOUNCEMENTS_RICHTEXT_CONTENT",
+    editable=False,
+    default=False
+)
