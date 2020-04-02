@@ -1,5 +1,7 @@
-from django.conf.urls.defaults import *
+from __future__ import absolute_import, unicode_literals
 
-urlpatterns = patterns('announcements.views',
-    (r'^current/$', 'announcements_json'),
-)
+from django.conf.urls import url
+
+from . import views
+
+urlpatterns = [url(r"^current/$", views.announcements_json)]

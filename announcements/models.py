@@ -27,8 +27,10 @@ class AnnouncementManager(models.Manager):
         Return the currently active announcements.
         """
         now = timezone.now()
-        return self.get_queryset().filter(date_start__lte=now).filter(
-            models.Q(date_end__gte=now) | models.Q(date_end__isnull=True)
+        return (
+            self.get_queryset()
+            .filter(date_start__lte=now)
+            .filter(models.Q(date_end__gte=now) | models.Q(date_end__isnull=True))
         )
 
     def for_request(self, request):
@@ -50,7 +52,7 @@ class AnnouncementManager(models.Manager):
                 pass
 
         qs = self.current().exclude(pk__in=dismissed_pk)
-        qs = qs.order_by('-date_start')[:settings.ANNOUNCEMENTS_MAX_NUMBER]
+        qs = qs.order_by("-date_start")[: settings.ANNOUNCEMENTS_MAX_NUMBER]
         return qs
 
 
@@ -60,33 +62,49 @@ class Announcement(models.Model):
     An announcement to all site visitors.
     Announcements can be scheduled and/or dismissed by each user when seen.
     """
+
     title = models.CharField("Title", max_length=255)
     content = models.TextField("Content")
     extra_content = models.TextField("Extra Content (optional)", blank=True)
-    image = FileField("Image", upload_to="announcements/images", format="Image", blank=True)
+    image = FileField(
+        "Image", upload_to="announcements/images", format="Image", blank=True
+    )
 
-    date_created = models.DateTimeField("Date created", db_index=True, auto_now_add=True)
+    date_created = models.DateTimeField(
+        "Date created", db_index=True, auto_now_add=True
+    )
     date_start = models.DateTimeField("Start date", db_index=True)
     date_end = models.DateTimeField("End date", db_index=True, null=True, blank=True)
 
     can_dismiss = models.BooleanField(
-        "Dismissable", default=True,
-        help_text="The user can dismiss (close) this announcement")
+        "Dismissable",
+        default=True,
+        help_text="The user can dismiss (close) this announcement",
+    )
     button_dismiss_text = models.CharField(
-        "Dismiss text", max_length=100, blank=True,
-        help_text="Text displayed with the dismiss button")
+        "Dismiss text",
+        max_length=100,
+        blank=True,
+        help_text="Text displayed with the dismiss button",
+    )
     announcement_type = models.IntegerField(
-        "Announcement type", default=0, choices=ANNOUNCEMENTS_TYPES)
+        "Announcement type", default=0, choices=ANNOUNCEMENTS_TYPES
+    )
     template = models.CharField(max_length=200, default="")
     form = models.ForeignKey("forms.Form", blank=True, null=True)
     video_link = models.URLField("Video URL", blank=True)
     expire_days = models.PositiveSmallIntegerField(
-        "Announcement frequency", null=True, blank=True,
+        "Announcement frequency",
+        null=True,
+        blank=True,
         help_text="Show the announcement again after being dismissed after "
-        "this amount of days")
+        "this amount of days",
+    )
     appearance_delay = models.IntegerField(
-        "Appearance delay", default=0,
-        help_text="Delay time for the announcement to appear (miliseconds)")
+        "Appearance delay",
+        default=0,
+        help_text="Delay time for the announcement to appear (miliseconds)",
+    )
 
     objects = AnnouncementManager()
 
@@ -115,6 +133,7 @@ class Announcement(models.Model):
             if self.date_end is None or self.date_end > now:
                 return True
         return False
+
     is_active.boolean = True
 
     def to_html(self):
@@ -122,10 +141,9 @@ class Announcement(models.Model):
         HTML representation of this announcement.
         """
         from django.template import loader, Context
+
         t = loader.get_template("announcements/announcement.html")
-        c = Context({
-            'announcement': self,
-        })
+        c = Context({"announcement": self})
         return t.render(c)
 
     def to_json(self):
@@ -133,8 +151,8 @@ class Announcement(models.Model):
         JSON representation of this announcement.
         """
         return {
-            'id': self.pk,
-            'title': self.title,
-            'can_dismiss': self.can_dismiss,
-            'html': self.to_html(),
+            "id": self.pk,
+            "title": self.title,
+            "can_dismiss": self.can_dismiss,
+            "html": self.to_html(),
         }

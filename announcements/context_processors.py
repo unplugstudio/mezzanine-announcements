@@ -2,6 +2,4 @@ from announcements.models import Announcement
 
 
 def announcements(request):
-    return {
-        'announcements': Announcement.objects.for_request(request),
-    }
+    return {"announcements": Announcement.objects.for_request(request)}

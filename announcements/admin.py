@@ -17,7 +17,12 @@ base_fieldsets = [
         "Settings",
         {
             "classes": ["collapse-closed"],
-            "fields": ["can_dismiss", "button_dismiss_text", "expire_days", "appearance_delay"],
+            "fields": [
+                "can_dismiss",
+                "button_dismiss_text",
+                "expire_days",
+                "appearance_delay",
+            ],
         },
     ),
 ]
@@ -42,7 +47,7 @@ class AnnouncementAdmin(admin.ModelAdmin):
         super(AnnouncementAdmin, self).__init__(model, admin_site)
 
         if settings.ANNOUNCEMENTS_RICHTEXT_CONTENT:
-            self.formfield_overrides[models.TextField] = {'widget': TinyMceWidget}
+            self.formfield_overrides[models.TextField] = {"widget": TinyMceWidget}
 
         self.fieldsets = deepcopy(base_fieldsets)
         extras = settings.ANNOUNCEMENTS_EXTRA_FIELDS
