@@ -25,6 +25,7 @@ if sys.argv[:2] == ["setup.py", "release"]:
     subprocess.check_call("rm -rf dist/")
     subprocess.check_call("python setup.py sdist")
     subprocess.check_call("python setup.py bdist_wheel")
+    subprocess.check_call("twine check dist/*")
     subprocess.check_call("twine upload dist/*")
     sys.exit()
 
@@ -50,7 +51,7 @@ setup(
         "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
     ],
-    keywords="django mezzanine announcement popup banner",
+    keywords="django mezzanine announcement popup banner alert",
     packages=find_packages(),
     install_requires=["mezzanine>=4.3.0"],
     include_package_data=True,
