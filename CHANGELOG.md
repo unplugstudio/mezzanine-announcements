@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.0.1](https://github.com/unplugstudio/mezzanine-announcements/compare/v1.0.0...v1.0.1) (2020-04-02)
+
+
+### Bug Fixes
+
+* fix JSON view ([2f362fe](https://github.com/unplugstudio/mezzanine-announcements/commit/2f362fe4d58a3f4705a1c9a8011ac2afbd4d4ea6))
+
 ## 1.0.0 (2020-04-02)
 
 
