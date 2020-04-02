@@ -3,7 +3,7 @@ from __future__ import unicode_literals
 from django.db import models
 from django.utils import timezone
 from django.utils.encoding import python_2_unicode_compatible
-from django.template import RequestContext
+from django.template import RequestContext, loader
 
 from mezzanine.conf import settings
 from mezzanine.core.fields import FileField
@@ -140,11 +140,8 @@ class Announcement(models.Model):
         """
         HTML representation of this announcement.
         """
-        from django.template import loader, Context
-
-        t = loader.get_template("announcements/announcement.html")
-        c = Context({"announcement": self})
-        return t.render(c)
+        t = loader.get_template(self.template)
+        return t.render({"announcement": self})
 
     def to_json(self):
         """
