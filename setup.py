@@ -1,27 +1,57 @@
 #!/usr/bin/env python
-from setuptools import setup, find_packages
 
-# Dynamically calculate the version based on VERSION
-version_tuple = __import__("announcements").VERSION
-version = ".".join([str(v) for v in version_tuple])
+from __future__ import print_function
+
+import subprocess
+import sys
+
+from setuptools import setup, find_packages
+from codecs import open
+
+from announcements import __version__
+
+# Get the long description from the README file
+with open("README.md", encoding="utf-8") as f:
+    long_description = f.read()
+
+# Bump version and generate CHANGELOG
+if sys.argv[:2] == ["setup.py", "bump"]:
+    subprocess.check_call("standard-version")  # npm install -g standard-version
+
+# Tag and release the package to PyPI
+if sys.argv[:2] == ["setup.py", "release"]:
+    subprocess.check_call("git push")
+    subprocess.check_call("git push --tags")
+    subprocess.check_call("rm -rf dist/")
+    subprocess.check_call("python setup.py sdist")
+    subprocess.check_call("python setup.py bdist_wheel")
+    subprocess.check_call("twine upload dist/*")
+    sys.exit()
 
 setup(
     name="mezzanine-announcements",
-    description="""Basic site-wide announcements for your Mezzanine project.""",
-    version=version,
-    author="Eduardo Vela",
-    author_email="eduardo3vela@gmail.com",
-    url="git@gitlab.com:tigris-webdev/mezzanine-announcements.git",
-    packages=find_packages(),
-    include_package_data=True,
+    version=__version__,
+    description="Site-wide announcements for Mezzanine websites",
+    long_description=long_description,
+    long_description_content_type="text/markdown",
+    url="https://github.com/unplugstudio/mezzanine-announcements",
+    author="Unplug Studio",
+    author_email="hello@unplug.studio",
+    license="MIT",
     classifiers=[
-        "Development Status :: 4 - Beta",
-        "Environment :: Web Environment",
-        "Framework :: Django",
+        "Development Status :: 5 - Production/Stable",
         "Intended Audience :: Developers",
-        "License :: OSI Approved :: BSD License",
-        "Operating System :: OS Independent",
-        "Programming Language :: Python",
-        "Topic :: Utilities",
+        "Topic :: Software Development :: Libraries",
+        "License :: OSI Approved :: MIT License",
+        "Programming Language :: Python :: 2",
+        "Programming Language :: Python :: 2.7",
+        "Programming Language :: Python :: 3",
+        "Programming Language :: Python :: 3.6",
+        "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: 3.8",
     ],
+    keywords="django mezzanine announcement popup banner",
+    packages=find_packages(),
+    install_requires=["mezzanine>=4.3.0"],
+    include_package_data=True,
 )

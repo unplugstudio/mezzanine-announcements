@@ -1,0 +1,8 @@
+{
+  "bumpFiles": [
+    {
+      "filename": "announcements/__init__.py",
+      "updater": "regex-updater.js"
+    }
+  ]
+}
