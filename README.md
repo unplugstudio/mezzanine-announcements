@@ -73,6 +73,14 @@ need to keep in mind are the following:
 
 ## Settings
 
-By default only one announcement will be shown to the user, even if several are
-currently active. You can change this behavior in the Settings area of the
-Mezzanine admin. The setting is registered as `ANNOUNCEMENTS_MAX_NUMBER`.
+| Name                           | Default value | Description                                                                                             |
+|--------------------------------|---------------|---------------------------------------------------------------------------------------------------------|
+| ANNOUNCEMENTS_MAX_NUMBER       | 1             | How many announcements should be shown in the frontend even if several are active                       |
+| ANNOUNCEMENTS_EXTRA_FIELDS     | None          | List of additional fields to display in the announcement admin: ["extra_content", "video_link", "form"] |
+| ANNOUNCEMENTS_RICHTEXT_CONTENT | False         | Use TinyMCE when editing announcement content fields                                                    |
+
+## Contributing
+
+Review contribution guidelines at [CONTRIBUTING.md].
+
+[CONTRIBUTING.md]: CONTRIBUTING.md
