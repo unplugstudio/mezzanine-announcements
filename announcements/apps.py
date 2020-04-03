@@ -16,3 +16,8 @@ class AnnouncementsConfig(AppConfig):
                 "`settings.ANNOUNCEMENTS_VIDEO_ENABLED` has been deprecated. "
                 "Please use `settings.ANNOUNCEMENTS_EXTRA_FIELDS = ['video_link']`"
             )
+
+        if not hasattr(settings, "ANNOUNCEMENTS_TEMPLATES"):
+            raise ImproperlyConfigured(
+                "You must define settings.ANNOUNCEMENTS_TEMPLATES to use mezzanine-announcements"
+            )

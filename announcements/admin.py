@@ -2,6 +2,7 @@ from __future__ import unicode_literals, absolute_import
 
 from copy import deepcopy
 
+from django import forms
 from django.contrib import admin
 from django.db import models
 
@@ -10,8 +11,23 @@ from mezzanine.core.forms import TinyMceWidget
 
 from .models import Announcement
 
+
+class AnnouncementForm(forms.ModelForm):
+    """
+    Dynamically get the template options from settings
+    """
+
+    template = forms.ChoiceField(
+        choices=settings.ANNOUNCEMENTS_TEMPLATES, label="Template"
+    )
+
+    class Meta:
+        model = Announcement
+        fields = "__all__"
+
+
 base_fieldsets = [
-    ("Content", {"fields": ["image", "title", "announcement_type", "content"]}),
+    ("Content", {"fields": ["image", "title", "template", "content"]}),
     ("Schedule", {"fields": [("date_start", "date_end")]}),
     (
         "Settings",
@@ -29,11 +45,12 @@ base_fieldsets = [
 
 
 class AnnouncementAdmin(admin.ModelAdmin):
+    form = AnnouncementForm
     date_hierarchy = "date_start"
-    list_filter = ["announcement_type", "can_dismiss"]
+    list_filter = ["can_dismiss"]
     list_display = [
         "title",
-        "announcement_type",
+        "get_template_display",
         "date_start",
         "date_end",
         "is_active",

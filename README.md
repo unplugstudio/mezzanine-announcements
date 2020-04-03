@@ -19,7 +19,7 @@ A Mezzanine app to create and display site-wide announcements.
 1. Add `"announcements.context_processors.announcements"` to your context processors.
 1. Define the list of announcement templates that will be available for your
    admin users. This is a tuple of two-value tuples defined in
-   `settings.ANNOUNCEMENT_TEMPLATES` where the first element is the path to the Django template to be used, and the second element is the friendly name
+   `settings.ANNOUNCEMENTS_TEMPLATES` where the first element is the path to the Django template to be used, and the second element is the friendly name
    displayed in the admin for said template. For example:
 
    ```python
@@ -48,7 +48,7 @@ Then to display the announcements in your templates:
 ## Templates
 
 You can use any markup and styling you want in the announcement templates
-defined in `settings.ANNOUNCEMENT_TEMPLATES`. You could use a Bootstrap modal,
+defined in `settings.ANNOUNCEMENTS_TEMPLATES`. You could use a Bootstrap modal,
 or simple horizontal bar on the top of your page. The only conditions that you
 need to keep in mind are the following:
 
@@ -59,10 +59,12 @@ need to keep in mind are the following:
   the class `close-announcement` as a child of `.announcement`.
 
 ```django
-<div class="announcement"
+<div
+    class="announcement"
 	data-appearance-delay="{{ announcement.appearance_delay }}"
-	data-announcement-id="{{ announcement.pk }}"
-	data-expire-days="{{ announcement.expire_days|default:'false' }}">
+	data-announcement-id="{{ announcement.id }}"
+	data-expire-days="{{ announcement.expire_days }}"
+>
 	{{ announcement.content }}
 	{% if announcement.can_dismiss %}
 		<button class="close-announcement">Close</button>
@@ -74,6 +76,7 @@ need to keep in mind are the following:
 
 | Name                           | Default value | Description                                                                                             |
 |--------------------------------|---------------|---------------------------------------------------------------------------------------------------------|
+| ANNOUNCEMENTS_TEMPLATES        | None          | List of templates available for announcements. See Templates section above |
 | ANNOUNCEMENTS_EXTRA_FIELDS     | None          | List of additional fields to display in the announcement admin: ["extra_content", "video_link", "form"] |
 | ANNOUNCEMENTS_RICHTEXT_CONTENT | False         | Use TinyMCE when editing announcement content fields                                                    |
 

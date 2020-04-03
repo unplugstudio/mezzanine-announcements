@@ -11,12 +11,6 @@ from mezzanine.core.request import current_request
 from mezzanine.forms.forms import FormForForm
 
 
-# Announcements types tuple
-ANNOUNCEMENTS_TYPES = []
-for index, value in enumerate(settings.ANNOUNCEMENT_TEMPLATES):
-    ANNOUNCEMENTS_TYPES.append((index, value[1]))
-
-
 class AnnouncementManager(models.Manager):
     """
     Custom manager for the Announcement model.
@@ -87,10 +81,7 @@ class Announcement(models.Model):
         blank=True,
         help_text="Text displayed with the dismiss button",
     )
-    announcement_type = models.IntegerField(
-        "Announcement type", default=0, choices=ANNOUNCEMENTS_TYPES
-    )
-    template = models.CharField(max_length=200, default="")
+    template = models.CharField(max_length=200)
     form = models.ForeignKey("forms.Form", blank=True, null=True)
     video_link = models.URLField("Video URL", blank=True)
     expire_days = models.PositiveSmallIntegerField(
@@ -115,9 +106,11 @@ class Announcement(models.Model):
     def __str__(self):
         return self.title
 
-    def save(self, *args, **kwargs):
-        self.template = settings.ANNOUNCEMENT_TEMPLATES[self.announcement_type][0]
-        super(Announcement, self).save(*args, **kwargs)
+    def get_template_display(self):
+        templates = dict(settings.ANNOUNCEMENTS_TEMPLATES)
+        return templates.get(self.template, "")
+
+    get_template_display.short_description = "Template"
 
     def get_email_form(self):
         if self.form:
