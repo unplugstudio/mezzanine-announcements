@@ -19,5 +19,6 @@ class AnnouncementsConfig(AppConfig):
 
         if not hasattr(settings, "ANNOUNCEMENTS_TEMPLATES"):
             raise ImproperlyConfigured(
-                "You must define settings.ANNOUNCEMENTS_TEMPLATES to use mezzanine-announcements"
+                "You must define settings.ANNOUNCEMENTS_TEMPLATES to use "
+                "mezzanine-announcements"
             )
