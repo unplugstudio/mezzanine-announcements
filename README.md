@@ -13,14 +13,13 @@ A Mezzanine app to create and display site-wide announcements.
 
 ## Installation
 
-1. Install via pip: `pip install -e git+https://gitlab.com/unplugstudio/mezzanine-announcements.git#egg=mezzanine-announcements`
+1. Install via pip: `pip install mezzanine-announcements`
 1. Add to `"announcements"` to `INSTALLED_APPS`.
 1. Run migrations.
 1. Add `"announcements.context_processors.announcements"` to your context processors.
 1. Define the list of announcement templates that will be available for your
    admin users. This is a tuple of two-value tuples defined in
-   `settings.ANNOUNCEMENT_TEMPLATES` where the first element is the path to the
-   Django template to be used, and the second element is the friendly name
+   `settings.ANNOUNCEMENT_TEMPLATES` where the first element is the path to the Django template to be used, and the second element is the friendly name
    displayed in the admin for said template. For example:
 
    ```python
@@ -75,7 +74,6 @@ need to keep in mind are the following:
 
 | Name                           | Default value | Description                                                                                             |
 |--------------------------------|---------------|---------------------------------------------------------------------------------------------------------|
-| ANNOUNCEMENTS_MAX_NUMBER       | 1             | How many announcements should be shown in the frontend even if several are active                       |
 | ANNOUNCEMENTS_EXTRA_FIELDS     | None          | List of additional fields to display in the announcement admin: ["extra_content", "video_link", "form"] |
 | ANNOUNCEMENTS_RICHTEXT_CONTENT | False         | Use TinyMCE when editing announcement content fields                                                    |
 

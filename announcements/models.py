@@ -52,7 +52,7 @@ class AnnouncementManager(models.Manager):
                 pass
 
         qs = self.current().exclude(pk__in=dismissed_pk)
-        qs = qs.order_by("-date_start")[: settings.ANNOUNCEMENTS_MAX_NUMBER]
+        qs = qs.order_by("-date_start")
         return qs
 
 
