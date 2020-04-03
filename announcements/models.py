@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 from django.db import models
 from django.utils import timezone
 from django.utils.encoding import python_2_unicode_compatible
+from django.utils.timezone import now
 from django.template import RequestContext, loader
 
 from mezzanine.conf import settings
@@ -67,7 +68,7 @@ class Announcement(models.Model):
     date_created = models.DateTimeField(
         "Date created", db_index=True, auto_now_add=True
     )
-    date_start = models.DateTimeField("Start date", db_index=True)
+    date_start = models.DateTimeField("Start date", db_index=True, default=now)
     date_end = models.DateTimeField("End date", db_index=True, null=True, blank=True)
 
     can_dismiss = models.BooleanField(
