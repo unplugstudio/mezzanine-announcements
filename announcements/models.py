@@ -84,17 +84,16 @@ class Announcement(models.Model):
     template = models.CharField(max_length=200)
     form = models.ForeignKey("forms.Form", blank=True, null=True)
     video_link = models.URLField("Video URL", blank=True)
-    expire_days = models.PositiveSmallIntegerField(
+    expire_days = models.PositiveIntegerField(
         "Announcement frequency",
-        null=True,
-        blank=True,
+        default=365,
         help_text="Show the announcement again after being dismissed after "
         "this amount of days",
     )
-    appearance_delay = models.IntegerField(
+    appearance_delay = models.PositiveIntegerField(
         "Appearance delay",
         default=0,
-        help_text="Delay time for the announcement to appear (miliseconds)",
+        help_text="Delay time for the announcement to appear (milliseconds)",
     )
 
     objects = AnnouncementManager()
