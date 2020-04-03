@@ -53,6 +53,6 @@ setup(
     ],
     keywords="django mezzanine announcement popup banner alert",
     packages=find_packages(),
-    install_requires=["mezzanine>=4.3.0"],
+    install_requires=["mezzanine>=4", "django>=1.8"],
     include_package_data=True,
 )
