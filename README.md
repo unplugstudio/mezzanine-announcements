@@ -59,13 +59,14 @@ need to keep in mind are the following:
   the class `close-announcement` as a child of `.announcement`.
 
 ```django
+{% load mezzanine_tags %}
 <div
     class="announcement"
 	data-appearance-delay="{{ announcement.appearance_delay }}"
 	data-announcement-id="{{ announcement.id }}"
 	data-expire-days="{{ announcement.expire_days }}"
 >
-	{{ announcement.content }}
+	{{ announcement.content|richtext_filters|safe }}
 	{% if announcement.can_dismiss %}
 		<button class="close-announcement">Close</button>
 	{% endif %}
@@ -78,7 +79,6 @@ need to keep in mind are the following:
 |--------------------------------|---------------|---------------------------------------------------------------------------------------------------------|
 | ANNOUNCEMENTS_TEMPLATES        | None          | List of templates available for announcements. See Templates section above |
 | ANNOUNCEMENTS_EXTRA_FIELDS     | None          | List of additional fields to display in the announcement admin: ["extra_content", "video_link", "form"] |
-| ANNOUNCEMENTS_RICHTEXT_CONTENT | False         | Use TinyMCE when editing announcement content fields                                                    |
 
 ## Contributing
 

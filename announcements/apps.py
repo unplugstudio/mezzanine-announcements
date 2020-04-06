@@ -17,6 +17,12 @@ class AnnouncementsConfig(AppConfig):
                 "Please use `settings.ANNOUNCEMENTS_EXTRA_FIELDS = ['video_link']`"
             )
 
+        if hasattr(settings, "ANNOUNCEMENTS_RICHTEXT_CONTENT"):
+            raise ImproperlyConfigured(
+                "`settings.ANNOUNCEMENTS_RICHTEXT_CONTENT` has been deprecated. "
+                "All content fields are now RichText fields."
+            )
+
         if not hasattr(settings, "ANNOUNCEMENTS_TEMPLATES"):
             raise ImproperlyConfigured(
                 "You must define settings.ANNOUNCEMENTS_TEMPLATES to use "

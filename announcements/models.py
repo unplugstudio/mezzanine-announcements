@@ -7,7 +7,7 @@ from django.utils.timezone import now
 from django.template import RequestContext, loader
 
 from mezzanine.conf import settings
-from mezzanine.core.fields import FileField
+from mezzanine.core.fields import FileField, RichTextField
 from mezzanine.core.request import current_request
 from mezzanine.forms.forms import FormForForm
 
@@ -59,8 +59,8 @@ class Announcement(models.Model):
     """
 
     title = models.CharField("Title", max_length=255)
-    content = models.TextField("Content")
-    extra_content = models.TextField("Extra Content (optional)", blank=True)
+    content = RichTextField("Content")
+    extra_content = RichTextField("Extra Content (optional)", blank=True)
     image = FileField(
         "Image", upload_to="announcements/images", format="Image", blank=True
     )
