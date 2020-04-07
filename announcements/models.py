@@ -47,7 +47,6 @@ class AnnouncementManager(CurrentSiteManager):
                 pass
 
         qs = self.current().exclude(pk__in=dismissed_pk)
-        qs = qs.order_by("-date_start")
         return qs
 
 
@@ -102,6 +101,7 @@ class Announcement(SiteRelated):
     class Meta:
         verbose_name = "Announcement"
         verbose_name_plural = "Announcements"
+        ordering = ["-date_start"]
 
     def __str__(self):
         return self.title
