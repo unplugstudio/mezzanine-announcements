@@ -7,12 +7,14 @@ from django.utils.timezone import now
 from django.template import RequestContext, loader
 
 from mezzanine.conf import settings
+from mezzanine.core.models import CurrentSiteManager
+from mezzanine.core.models import SiteRelated
 from mezzanine.core.fields import FileField, RichTextField
 from mezzanine.core.request import current_request
 from mezzanine.forms.forms import FormForForm
 
 
-class AnnouncementManager(models.Manager):
+class AnnouncementManager(CurrentSiteManager):
     """
     Custom manager for the Announcement model.
     """
@@ -22,10 +24,8 @@ class AnnouncementManager(models.Manager):
         Return the currently active announcements.
         """
         now = timezone.now()
-        return (
-            self.get_queryset()
-            .filter(date_start__lte=now)
-            .filter(models.Q(date_end__gte=now) | models.Q(date_end__isnull=True))
+        return self.filter(date_start__lte=now).filter(
+            models.Q(date_end__gte=now) | models.Q(date_end__isnull=True)
         )
 
     def for_request(self, request):
@@ -52,7 +52,7 @@ class AnnouncementManager(models.Manager):
 
 
 @python_2_unicode_compatible
-class Announcement(models.Model):
+class Announcement(SiteRelated):
     """
     An announcement to all site visitors.
     Announcements can be scheduled and/or dismissed by each user when seen.
