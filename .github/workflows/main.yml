@@ -14,8 +14,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - name: Setup Python
-        uses: actions/setup-python@v1
+      - uses: actions/setup-python@v1
         with:
           python-version: ${{ matrix.python }}
       - name: Install dependencies
@@ -28,16 +27,14 @@ jobs:
   # Create a new semantic release
   release:
     needs: test
-    if: github.ref == 'refs/heads/master'
+    if: github.ref == 'refs/heads/master' # Runs on master only
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Setup Python
-        uses: actions/setup-python@v1
+      - uses: actions/setup-python@v1
         with:
           python-version: 3.8
-      - name: Semantic release
-        uses: cycjimmy/semantic-release-action@v2
+      - uses: cycjimmy/semantic-release-action@v2
         with:
           semantic_version: 17
           extra_plugins: |
@@ -45,4 +42,4 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           TWINE_USERNAME: __token__
-          TWINE_PASSWORD: ${{ secrets.pypi_token }}
+          TWINE_PASSWORD: ${{ secrets.PYPI_TOKEN }}
