@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0](https://github.com/unplugstudio/mezzanine-announcements/compare/v2.0.0...v3.0.0) (2020-04-07)
+
+
+### ⚠ BREAKING CHANGES
+
+* all content fields use RichTextField by default and
+settings.ANNOUNCEMENTS_RICHTEXT_CONTENT has been deprecated.
+
+### Features
+
+* use RichTextField on all content fields ([f909d32](https://github.com/unplugstudio/mezzanine-announcements/commit/f909d326f6b815a68462ff79db016d3bcdfdcf63))
+
 ## [2.0.0](https://github.com/unplugstudio/mezzanine-announcements/compare/v1.0.1...v2.0.0) (2020-04-03)
 
 
