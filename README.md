@@ -2,6 +2,9 @@
 
 A Mezzanine app to create and display site-wide announcements.
 
+[![PyPI version](https://badge.fury.io/py/mezzanine-announcements.svg)](https://badge.fury.io/py/mezzanine-announcements)
+![Workflow status](https://github.com/unplugstudio/mezzanine-announcements/workflows/Test%20and%20release/badge.svg)
+
 ## Features
 
 - Schedulable announcements (start and end datetimes)
