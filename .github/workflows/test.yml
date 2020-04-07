@@ -40,9 +40,9 @@ jobs:
         run: |
           git config --local user.email 'action@github.com'
           git config --local user.name 'GitHub Action'
-          npx standard-version
-      - name: Push changelog and tag
-        uses: ad-m/github-push-action@master
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          tags: true
+          npx standard-version --dry-run
+      # - name: Push changelog and tag
+      #   uses: ad-m/github-push-action@master
+      #   with:
+      #     github_token: ${{ secrets.GITHUB_TOKEN }}
+      #     tags: true
