@@ -2,6 +2,8 @@ build
 dist
 *.pyc
 *.pyo
+*.eggs
 *egg-info
 *.sublime-*
 .vscode
+version.py

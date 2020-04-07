@@ -1,4 +1,4 @@
-name: Test and lint | Bump version
+name: Test and release
 
 # Fires on all incoming commits
 on: [push]
@@ -25,7 +25,7 @@ jobs:
       - name: Run tests
         run: tox
 
-  # Bump version, generate changelog, and push tags
+  # Create a new semantic release
   bump:
     needs: test
     if: github.ref == 'refs/heads/master'
@@ -36,13 +36,13 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: '12.x'
-      - name: Generate changelog and tag
-        run: |
-          git config --local user.email 'action@github.com'
-          git config --local user.name 'GitHub Action'
-          npx standard-version --dry-run
-      # - name: Push changelog and tag
-      #   uses: ad-m/github-push-action@master
-      #   with:
-      #     github_token: ${{ secrets.GITHUB_TOKEN }}
-      #     tags: true
+      - name: Setup Python
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.8
+      - name: Semantic release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TWINE_USERNAME: __token__
+          TWINE_PASSWORD: ${{ secrets.pypi_token }}
+        run: npx semantic-release

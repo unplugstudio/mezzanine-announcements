@@ -5,15 +5,12 @@ from __future__ import print_function
 from setuptools import setup, find_packages
 from codecs import open
 
-from announcements import __version__
-
 # Get the long description from the README file
 with open("README.md", encoding="utf-8") as f:
     long_description = f.read()
 
 setup(
     name="mezzanine-announcements",
-    version=__version__,
     description="Site-wide announcements for Mezzanine websites",
     long_description=long_description,
     long_description_content_type="text/markdown",
@@ -37,5 +34,7 @@ setup(
     packages=find_packages(),
     install_requires=["mezzanine>=4", "django>=1.8"],
     extras_require={"testing": ["flake8>=3,<4", "pytest>=4,<6"]},
+    setup_requires=["setuptools_scm>=3,<4"],
     include_package_data=True,
+    use_scm_version={"write_to": "announcements/version.py"},
 )
