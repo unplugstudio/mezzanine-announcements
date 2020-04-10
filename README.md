@@ -20,17 +20,15 @@ A Mezzanine app to create and display site-wide announcements.
 1. Add to `"announcements"` to `INSTALLED_APPS`.
 1. Run migrations.
 1. Add `"announcements.context_processors.announcements"` to your context processors.
-1. Define the list of announcement templates that will be available for your
-   admin users. This is a tuple of two-value tuples defined in
-   `settings.ANNOUNCEMENTS_TEMPLATES` where the first element is the path to the Django template to be used, and the second element is the friendly name
-   displayed in the admin for said template. For example:
+1. Define the list of announcement templates that will be available for your admin users. This is a tuple of two-value tuples defined in `settings.ANNOUNCEMENTS_TEMPLATES` where the first element is the path to the Django template to be used, and the second element is the friendly name displayed in the admin for said template. For example:
 
    ```python
-   ANNOUNCEMENT_TEMPLATES = (
-       ("includes/announcements/modal.html", "Modal"),
-       ("includes/announcements/top_bar.html", "Top bar"),
+   ANNOUNCEMENTS_TEMPLATES = (
+       ("announcements/modal.html", "Modal"),
+       ("announcements/top_bar.html", "Top bar"),
    )
    ```
+   You need to create this templates yourself. An example is provided below.
 1. Add some announcements in the new "Announcements" section in the admin.
 
 Then to display the announcements in your templates:
@@ -64,7 +62,7 @@ need to keep in mind are the following:
 ```django
 {% load mezzanine_tags %}
 <div
-    class="announcement"
+	class="announcement"
 	data-appearance-delay="{{ announcement.appearance_delay }}"
 	data-announcement-id="{{ announcement.id }}"
 	data-expire-days="{{ announcement.expire_days }}"
