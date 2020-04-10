@@ -8,7 +8,7 @@ import mezzanine.core.fields
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('forms', '0005_auto_20151026_1600'),
+        ('forms', '0003_emailfield'),
     ]
 
     operations = [
