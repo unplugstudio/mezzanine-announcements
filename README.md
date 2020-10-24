@@ -1,9 +1,12 @@
 # Mezzanine Announcements
 
-A Mezzanine app to create and display site-wide announcements.
+[![Workflow status](https://github.com/unplugstudio/mezzanine-announcements/workflows/Test%20and%20release/badge.svg)](https://github.com/unplugstudio/mezzanine-announcements/actions)
+[![PyPI version](https://badge.fury.io/py/mezzanine-announcements.svg)](https://pypi.org/project/mezzanine-announcements/)
+[![Python versions](https://img.shields.io/pypi/pyversions/mezzanine-announcements)](https://pypi.org/project/mezzanine-announcements/)
+[![Follows: Semantic Versioning](https://img.shields.io/badge/follows-SemVer-blue.svg)](https://semver.org/)
+[![Code style: Black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
-[![PyPI version](https://badge.fury.io/py/mezzanine-announcements.svg)](https://badge.fury.io/py/mezzanine-announcements)
-![Workflow status](https://github.com/unplugstudio/mezzanine-announcements/workflows/Test%20and%20release/badge.svg)
+A Mezzanine app to create and display site-wide announcements.
 
 ## Features
 
