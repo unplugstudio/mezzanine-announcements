@@ -67,7 +67,7 @@ window.addEventListener('DOMContentLoaded', function () {
 	})
 
 	// Bind the close buttons on each announcement
-	document.querySelectorAll('.close-announcement').forEach(function (button) {
+	document.querySelectorAll('.close-announcement, [data-announcement-close]').forEach(function (button) {
 		button.addEventListener('click', closeHandler)
 	})
 })
