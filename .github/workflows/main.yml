@@ -5,7 +5,7 @@ on: [push]
 
 jobs:
 
-  # Test and lint
+  # Test
   test:
     runs-on: ubuntu-latest
     strategy:
@@ -18,16 +18,15 @@ jobs:
         with:
           python-version: ${{ matrix.python }}
       - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install tox tox-gh-actions
+        run: pip install tox tox-gh-actions
       - name: Run tests
-        run: tox
+        run: tox --parallel
+        env:
+          TOX_PARALLEL_NO_SPINNER: 1
 
   # Create a new semantic release
   release:
     needs: test
-    if: github.ref == 'refs/heads/master' # Runs on master only
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
