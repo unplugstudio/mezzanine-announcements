@@ -1,3 +1,12 @@
+include *.md
 include LICENSE
-recursive-include announcements/templates *
+
+recursive-include announcements *.py
 recursive-include announcements/static *
+recursive-include announcements/templates *.html
+recursive-include announcements/templates *.txt
+recursive-include announcements/locale *.mo *.po
+
+prune tests
+exclude .releaserc
+exclude .editorconfig
