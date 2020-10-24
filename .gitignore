@@ -6,4 +6,5 @@ dist
 *egg-info
 *.sublime-*
 .vscode
+.tox
 version.py
