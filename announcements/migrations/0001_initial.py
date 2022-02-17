@@ -28,7 +28,7 @@ class Migration(migrations.Migration):
                 ('template', models.CharField(default='', max_length=200)),
                 ('expire_days', models.PositiveSmallIntegerField(help_text='Show the announcement again after being dismissed after this amount of days', null=True, verbose_name='Announcement frequency', blank=True)),
                 ('appearance_delay', models.IntegerField(default=0, help_text='Delay time for the announcement to appear (miliseconds)', verbose_name='Appearance delay')),
-                ('form', models.ForeignKey(blank=True, to='forms.Form', null=True)),
+                ('form', models.ForeignKey(blank=True, to='forms.Form', null=True, on_delete=models.CASCADE)),
             ],
             options={
                 'verbose_name': 'Announcement',

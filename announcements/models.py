@@ -82,7 +82,9 @@ class Announcement(SiteRelated):
         help_text="Text displayed with the dismiss button",
     )
     template = models.CharField(max_length=200)
-    form = models.ForeignKey("forms.Form", blank=True, null=True)
+    form = models.ForeignKey(
+        "forms.Form", blank=True, null=True, on_delete=models.CASCADE
+    )
     video_link = models.URLField("Video URL", blank=True)
     expire_days = models.PositiveIntegerField(
         "Announcement frequency",
