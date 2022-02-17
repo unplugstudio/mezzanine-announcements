@@ -1,9 +1,15 @@
-import urlparse
+import platform
 
 from announcements import defaults
 from django.template import Library
 from django.utils.safestring import mark_safe
 
+PYTHON_VEERSION = platform.python_version().split(".")[0]
+
+if int(PYTHON_VEERSION) < 3:
+    import urlparse
+else:
+    from urllib.parse import urlparse
 register = Library()
 
 
